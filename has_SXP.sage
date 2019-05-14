@@ -1,12 +1,13 @@
 ### load this file by load('has_SXP.sage')
 ### or, you may run it on SageCell server through the link
-### link
+### https://sagecell.sagemath.org/?z=eJylkcFOwzAMhu99Ct_SHtZy4TIJoZ7YsVJAQkKo8lrTZGqdKnHZeHuydUVjSHDgZv-Of_tzeodtqozIGNZF4XGfd1bMtJ0C-caxEEveuKHY0Wgscm-5GKdtb4MpBgxCvjAYav1c5QE7UlmSdHAHncfRhLxCMQ_HML3NkvKo59jusCFuPuoBxdtD2mXJ6C0LqPhAneNy0VarlUqWROsK3snbN9ugWMcwW6yXrljTafnl9xQIHrWuG9fXlls6pJyBOAhEIIYg6tPAcCotFmpDnoDjqmXe2oE4xDkhzV5uXtWlbxxVe7c_-5bffKN-ZTpTLFk8GESU-6V8OqCuLjb_QS3IXfwJCGM83jV2ZPwv9dx0QcR_EP1ypk9ZtMXB&lang=sage&interacts=eJyLjgUAARUAuQ==
 
 ### Some examples:
 """
 g = graphs.PathGraph(5)
 A = g.adjacency_matrix(g)
 print A
+print 'A ='
 print '---'
 
 print 'SSP verification matrix:'
