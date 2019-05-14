@@ -233,7 +233,7 @@ def has_full_row_rank(M):
     m,n = M.dimensions()
     return M.rank() == m
 
-def new_has_SSP(A):
+def has_SSP(A):
     """
     Input:
         A: a real sym matrix
@@ -242,7 +242,7 @@ def new_has_SSP(A):
     """
     return has_full_row_rank(verS(A))
 
-def new_has_SMP(A):
+def has_SMP(A):
     """
     Input:
         A: a real sym matrix
@@ -251,7 +251,7 @@ def new_has_SMP(A):
     """
     return has_full_row_rank(verM(A))
 
-def new_has_SAP(A):
+def has_SAP(A):
     """
     Input:
         A: a real sym matrix
