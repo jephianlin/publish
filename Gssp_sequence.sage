@@ -1,6 +1,40 @@
-### Need check: Lemma 3.1, 3.10, 3.13
+### Need check: Lemma 3.1, 3.10, 3.13, (notebooke) Corollary 2.7 and Example 3.17, 5.4
 
-### GLP License & Tested under SageMath 9.0
+### Gssp sequence
+### Author: Jephian Lin
+
+### Tested under SageMath 9.0
+### See the illustration file Gssp_illustration.ipynb on
+### https://github.com/jephianlin/publish
+
+### Quick Sample
+"""
+### Gssp_sequence will return
+### True or False
+### (whether there is a Gssp sequence
+###  starting from g and ending with a complete graph), 
+### and a sequence of forces
+sage: g = graphs.PathGraph(5)
+sage: Gssp_sequence(g)
+(True,
+ [(1, ((1, 0), (0, 2))),
+  (1, ((2, 0), (0, 3))),
+  (1, ((2, 1), (1, 3))),
+  (1, ((3, 0), (0, 4))),
+  (1, ((0, 4), (4, 1))),
+  (1, ((1, 4), (4, 2)))])
+
+### If print_force=True
+### then typeset the forces
+sage: g = graphs.PathGraph(5)
+sage: forces = Gssp_sequence(g, print_force=True)
+Rule 1: {1,0} --> {0,2}
+Rule 1: {2,0} --> {0,3}
+Rule 1: {2,1} --> {1,3}
+Rule 1: {3,0} --> {0,4}
+Rule 1: {0,4} --> {4,1}
+Rule 1: {1,4} --> {4,2}
+"""
 
 ### GENERAL FUNCTIONS
 def typeset_force(rule_num, force):
