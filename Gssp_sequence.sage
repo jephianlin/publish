@@ -357,3 +357,75 @@ def Gssp_sequence(g, print_force=False):
         else:
             again = False
     return (is_complete(gl), forces)
+
+
+### FUNCTIONS COPIED FROM https://github.com/jephianlin/minrank_aux
+
+### from general_Lib.py
+def var_matrix(g):
+    """
+    Input:
+        g: a simple graph
+    Output:
+        a matrix with variable a1_j on ij-entry if ij is an edge, and a variable di on diagonal.
+    
+    """
+    n=g.order()
+    A=matrix(n,[var("x")]*(n^2));
+    E=g.edges(labels=False);
+    Ebar=g.complement().edges(labels=False);
+    V=g.vertices();
+    for v in V:
+        A[v,v]=var("d%s"%v);
+    for e in E:
+        i=min(e);
+        j=max(e);
+        A[i,j]=var("a%s_%s"%(i,j));
+        A[j,i]=var("a%s_%s"%(i,j));
+    for e in Ebar:
+        i,j=e;
+        A[i,j]=0;
+        A[j,i]=0; 
+    return A;
+
+### from SXP.sage
+def SSPmatrix(A, return_index=False):
+    """
+    Input: 
+        A: a symmetric matrix;
+        return_index: if True, also return two dictionaries
+                    row_index={pair: row index}
+                    column_index={nonedge: col index}
+    Output: 
+        the linear system given by SSP conditions;
+    """
+    n=A.dimensions()[0];
+    R=A.base_ring();
+    row_index={}; #{n+1 choose 2} restrictions
+    column_index={}; #|E(Gbar)| variables
+    res_counter=0;
+    var_counter=0;
+    for i in range(0,n):
+        for j in range(i+1,n):
+            row_index[i,j]=res_counter;
+            res_counter+=1
+            if A[i,j]==0:
+                column_index[i,j]=var_counter;
+                column_index[j,i]=var_counter; 
+                var_counter+=1;
+    SSP_sys=matrix(R,res_counter,var_counter);
+    for i in range(0,n):
+        for j in range(i+1,n):
+            for k in range(n):
+                if k!=j and A[k,j]==0:
+                    SSP_sys[row_index[i,j],column_index[k,j]]+=A[i,k];
+                if i!=k and A[i,k]==0:
+                    SSP_sys[row_index[i,j],column_index[i,k]]-=A[k,j];
+    if return_index:
+        keys=column_index.keys();
+        for a,b in keys:
+            if a>b:
+                c=column_index.pop((a,b));
+        return SSP_sys,row_index,column_index;
+    else:
+        return SSP_sys;
